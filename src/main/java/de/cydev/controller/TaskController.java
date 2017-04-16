@@ -1,31 +1,46 @@
 package de.cydev.controller;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
 
-import de.cydev.entities.TaskEntity;
+import de.cydev.model.tasks.Task;
 import de.cydev.repositories.TaskRepository;
 
-@RestController
+@Controller
 public class TaskController
 {
 	@Autowired
-	private TaskRepository taskRepository;
-
-	@RequestMapping("/getTaskById")
-	public TaskEntity getTaskById(@RequestParam(value = "id") Long id)
+	TaskRepository taskRepository;
+	
+	public Task createTask(Task task)
+	{
+		return taskRepository.save(task);
+	}
+	
+	public Task getTaskById(Long id)
 	{
 		return taskRepository.findOne(id);
 	}
-
-	@RequestMapping("/getTasksByCategory")
-	public List<TaskEntity> getTaskByCategory(@RequestParam(value = "category") String category)
+	
+	public Task updateTask(Long id, Task updatedTask)
 	{
-		return taskRepository.findByCategory(category);
+		Task task = taskRepository.findOne(id);
+		
+		if (task != null)
+		{
+			task.setTitle(updatedTask.getTitle());
+			task.setPriority(updatedTask.getPriority());
+			
+			taskRepository.save(task);
+			
+			return task;
+		}
+		
+		return null;
+	}
+	
+	public void deleteTask(Long id)
+	{
+		taskRepository.delete(id);
 	}
 }

@@ -1,4 +1,6 @@
-package de.cydev.entities;
+package de.cydev.model.tasks;
+
+import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,31 +8,33 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class TaskEntity
+public class Task implements Serializable
 {
+	private static final long serialVersionUID = 46627101071927231L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	private String title;
 	
-	private String category;
-
-	public TaskEntity()
+	private Priority priority;
+	
+	public Task()
 	{
 		
 	}
-
-	public TaskEntity(String title, String category)
+	
+	public Task(String title, Priority priority)
 	{
 		this.title = title;
-		this.category = category;
+		this.priority = priority;
 	}
 	
 	@Override
 	public String toString()
 	{
-		return String.format("Task[id=%d, title='%s', category='%s']", id, title, category);
+		return String.format("Task[id=%d, title=%s, priority=%s", id, title, priority);
 	}
 
 	public Long getId()
@@ -53,13 +57,13 @@ public class TaskEntity
 		this.title = title;
 	}
 
-	public String getCategory()
+	public Priority getPriority()
 	{
-		return category;
+		return priority;
 	}
 
-	public void setCategory(String category)
+	public void setPriority(Priority priority)
 	{
-		this.category = category;
+		this.priority = priority;
 	}
 }

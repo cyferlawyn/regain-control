@@ -1,12 +1,10 @@
 package de.cydev.repositories;
 
-import java.util.List;
-
 import org.springframework.data.repository.CrudRepository;
 
-import de.cydev.entities.TaskEntity;
+import de.cydev.model.tasks.Task;
 
-public interface TaskRepository extends CrudRepository<TaskEntity, Long>
+public interface TaskRepository extends CrudRepository<Task, Long>
 {
-	List<TaskEntity> findByCategory(String category);
+	
 }

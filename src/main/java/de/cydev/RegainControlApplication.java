@@ -7,7 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import de.cydev.entities.TaskEntity;
+import de.cydev.model.tasks.Priority;
+import de.cydev.model.tasks.Task;
 import de.cydev.repositories.TaskRepository;
 
 @SpringBootApplication
@@ -21,36 +22,28 @@ public class RegainControlApplication
 	}
 	
 	@Bean
-	public CommandLineRunner demo(TaskRepository repository) {
+	public CommandLineRunner demo(TaskRepository taskRepository) {
 		return (args) -> {
 			// save a couple of tasks
-			repository.save(new TaskEntity("Do A!", "Default"));
-			repository.save(new TaskEntity("Do B!", "Default"));
-			repository.save(new TaskEntity("Do C!", "Default"));
-			repository.save(new TaskEntity("Do D!", "Default"));
-			repository.save(new TaskEntity("Do E!", "Custom"));
+			taskRepository.save(new Task("Do A!", Priority.LOW));
+			taskRepository.save(new Task("Do B!", Priority.LOW));
+			taskRepository.save(new Task("Do C!", Priority.MEDIUM));
+			taskRepository.save(new Task("Do D!", Priority.HIGH));
+			taskRepository.save(new Task("Do E!", Priority.HIGH));
 
 			// fetch all tasks
 			log.info("Tasks found with findAll():");
 			log.info("-------------------------------");
-			for (TaskEntity task : repository.findAll()) {
+			for (Task task : taskRepository.findAll()) {
 				log.info(task.toString());
 			}
 			log.info("");
 
 			// fetch an individual task by ID
-			TaskEntity task = repository.findOne(1L);
+			Task task = taskRepository.findOne(1L);
 			log.info("Task found with findOne(1L):");
 			log.info("--------------------------------");
 			log.info(task.toString());
-			log.info("");
-
-			// fetch tasks by category
-			log.info("Tasks found with findByCategory('Custom'):");
-			log.info("--------------------------------------------");
-			for (TaskEntity customTask : repository.findByCategory("Custom")) {
-				log.info(customTask.toString());
-			}
 			log.info("");
 		};
 	}
