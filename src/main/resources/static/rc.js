@@ -4,7 +4,13 @@ var $vaultContainer;
 var $vaultTitleContainer;
 var $dumpContainer;
 
-function bootstrapPage() {
+var liveTaskPriority = "MEDIUM";
+
+$(document).ready(function() {
+	setup();
+});
+
+function setup() {
 	$calendarContainer = $('#calendarContainer'); 
 	$liveListContainer = $('#liveListContainer'); 
 	$vaultContainer = $('#vaultContainer');
@@ -25,7 +31,7 @@ function updateLiveListContainer(data) {
 	var html = "<ul>";
 	
 	for (var i = 0; i < data.tasks.length; i++) {
-		html = html + "<li>" + data.tasks[i].task.title + "</li>"
+		html = html + "<li>" + data.tasks[i].task.title + " (" + data.tasks[i].status + ")</li>"
 	}
 	
 	html = html + "</ul>";
@@ -51,7 +57,7 @@ function updateVaultContainer(data) {
 	var html = "<ul>";
 	
 	for (var i = 0; i < data.tasks.length; i++) {
-		html = html + "<li>" + data.tasks[i].task.title + "</li>"
+		html = html + "<li>" + data.tasks[i].task.title + " (" + data.tasks[i].status + ")</li>"
 	}
 	
 	html = html + "</ul>";
@@ -60,7 +66,7 @@ function updateVaultContainer(data) {
 
 function getLiveList(date) {
 	$.ajax({
-        url: "http://localhost:8080/getLiveListByDate?date=" + date
+        url: "http://192.168.0.19:8080/getLiveListByDate?date=" + date
     }).then(function(data) {
        updateLiveListContainer(data);
     });
@@ -68,7 +74,7 @@ function getLiveList(date) {
 
 function getVaultTitles() {
 	$.ajax({
-        url: "http://localhost:8080/getVaultListTitles"
+        url: "http://192.168.0.19:8080/getVaultListTitles"
     }).then(function(data) {
        updateVaultTitleContainer(data);
     });
@@ -76,12 +82,28 @@ function getVaultTitles() {
 
 function getVaultListByTitle(title) {
 	$.ajax({
-        url: "http://localhost:8080/getVaultListByTitle?title=" + title
+        url: "http://192.168.0.19:8080/getVaultListByTitle?title=" + title
     }).then(function(data) {
        updateVaultContainer(data);
     });
 }
 
-$(document).ready(function() {
-	bootstrapPage();
-});
+function selectLiveTaskPriority(priority) {
+	liveTaskPriority = priority;
+	if (priority == "LOW") {
+		$("#liveTaskPriorityButton").html("Priority: Low <span class=\"caret\"></span>");
+	} else if (priority == "MEDIUM") {
+		$("#liveTaskPriorityButton").html("Priority: Medium <span class=\"caret\"></span>");
+	} else {
+		$("#liveTaskPriorityButton").html("Priority: High <span class=\"caret\"></span>");
+	}
+} 
+
+function createLiveTask() {
+	$.ajax({
+        url: "http://192.168.0.19:8080/createLiveTask?date=" + new Date().toISOString() + "&taskTitle=" + $("#liveTaskTitleInput").val() + "&taskPriority=" + liveTaskPriority,
+        method: "POST"
+    }).then(function(data) {
+    	getLiveList(new Date().toISOString());
+    });
+}
