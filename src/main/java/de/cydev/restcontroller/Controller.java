@@ -88,7 +88,7 @@ public class Controller
 
 	@PostMapping("/createVaultTask")
 	public ResponseEntity<VaultList> createVaultTask(@RequestParam("vaultListTitle") String vaultListTitle,
-	        @RequestParam("taskTitle") String taskTitle, @RequestParam("priority") Priority taskPriority)
+	        @RequestParam("taskTitle") String taskTitle, @RequestParam("taskPriority") Priority taskPriority)
 	{
 		VaultList vaultList = vaultListController.getVaultListByTitle(vaultListTitle);
 

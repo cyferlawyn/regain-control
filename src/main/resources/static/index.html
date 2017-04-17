@@ -20,7 +20,6 @@
 		  
 		  <div class="tab-content">
 		    <div class="tab-pane active" id="liveList">
-		      <h3>Live list</h3>
 		      <div class="row">
 		        <div class="col-xs-4">
 		          <div class="panel panel-default">
@@ -34,7 +33,7 @@
 		      	  
 		      	  <div class="panel panel-default">
      		        <div class="panel-heading">
-				      <h3 class="panel-title">Add new live task</h3>
+				      <h3 class="panel-title">Create new live task</h3>
 				    </div>
 				    <div class="panel-body">
 				      <input id = "liveTaskTitleInput" type="text" class="form-control" placeholder="Get stuff done...">
@@ -50,7 +49,7 @@
 					    </div>
 					    
 					    <div class="btn-group" role="group">
-  					      <button class="btn btn-default" role="group" type="button" onClick="createLiveTask()">Add <span class="glyphicon glyphicon-ok-sign"></span></button>
+  					      <button class="btn btn-default" role="group" type="button" onClick="createLiveTask()">Create <span class="glyphicon glyphicon-ok-sign"></span></button>
 					    </div>					    
 					  </div>
 				    </div>
@@ -64,10 +63,56 @@
 		    </div>
 		    
 		    <div class="tab-pane" id="vault">
-		      <h3>Vault</h3>
 		      <div class="row">
 		        <div class="col-xs-4">
 		          <div id="vaultTitleContainer"></div>
+		        
+		          <div class="panel panel-default">
+     		        <div class="panel-heading">
+				      <h3 class="panel-title">Create new vault list</h3>
+				    </div>
+				    <div class="panel-body">
+				      <div class="input-group">
+					    <span class="input-group-addon" id="basic-addon1">Title</span>
+					    <input id = "vaultListTitleInput" type="text" class="form-control" placeholder="Awesome things to do in spain">
+					  </div>
+					  
+					  <div class="input-group">
+					    <span class="input-group-addon" id="basic-addon1">Tag&nbsp;</span>
+					    <input id = "vaultListTagInput" type="text" class="form-control" placeholder="Holiday">
+					  </div>
+				      
+				      <div class="btn-group btn-group-justified" role="group" aria-label="...">
+					    <div class="btn-group" role="group">
+				          <button class="btn btn-default" type="button" onClick="createVaultList()">Create <span class="glyphicon glyphicon-ok-sign"></span></button>
+				        </div>
+				      </div>
+				    </div>
+				  </div>		
+				  
+				  <div class="panel panel-default">
+     		        <div class="panel-heading">
+				      <h3 class="panel-title">Create new vault task</h3>
+				    </div>
+				    <div class="panel-body">
+				      <input id = "vaultTaskTitleInput" type="text" class="form-control" placeholder="Get stuff done...">
+				    
+				      <div class="btn-group btn-group-justified" role="group" aria-label="...">
+					    <div class="btn-group" role="group">
+					      <button id="vaultTaskPriorityButton" role="group" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Priority: Medium <span class="caret"></span></button>
+					      <ul class="dropdown-menu">
+				            <li onClick="selectVaultTaskPriority('LOW')")>Priority: Low</li>
+				            <li onClick="selectVaultTaskPriority('MEDIUM')">Priority: Medium</li>
+				            <li onClick="selectVaultTaskPriority('HIGH')">Priority: High</li>
+				          </ul>
+					    </div>
+					    
+					    <div class="btn-group" role="group">
+  					      <button class="btn btn-default" role="group" type="button" onClick="createVaultTask()">Create <span class="glyphicon glyphicon-ok-sign"></span></button>
+					    </div>					    
+					  </div>
+				    </div>
+				  </div>        			          
 		        </div>
 		        
 		        <div class="col-xs-8">
