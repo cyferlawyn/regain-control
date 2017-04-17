@@ -1,5 +1,8 @@
 package de.cydev.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -38,8 +41,16 @@ public class VaultListController
 		return vaultList;
 	}
 
-	public Iterable<VaultList> getVaultLists()
+	public List<String> getVaultListTitles()
 	{
-		return vaultListRepository.findAll();
+		List<String> vaultListTitles = new ArrayList<>();
+		
+		Iterable<VaultList> vaultLists = vaultListRepository.findAll();
+		for (VaultList vaultList : vaultLists)
+		{
+			vaultListTitles.add(vaultList.getTitle());
+		}
+		
+		return vaultListTitles;
 	}
 }

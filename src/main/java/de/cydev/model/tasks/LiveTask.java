@@ -18,6 +18,11 @@ public class LiveTask
 	
 	private Status status;
 
+	public LiveTask()
+	{
+		
+	}
+	
 	public LiveTask(Task task, Status status)
 	{
 		this.task = task;
